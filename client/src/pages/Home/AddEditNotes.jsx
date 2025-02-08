@@ -3,13 +3,18 @@ import { useState, useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import axiosInstance from "@/utils/axiosinstance";
 
-const AddEditNotes = ({ noteData, type, onClose, refreshNotes }) => {
+const AddEditNotes = ({
+  noteData,
+  type,
+  onClose,
+  refreshNotes,
+  showToastmessage,
+}) => {
   const [title, setTitle] = useState(noteData?.title || "");
   const [content, setContent] = useState(noteData?.content || "");
   const [tags, setTags] = useState(noteData?.tags || []);
   const [error, setError] = useState(null);
 
-  // Add a new Note
   const addNewNote = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -19,6 +24,10 @@ const AddEditNotes = ({ noteData, type, onClose, refreshNotes }) => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (!response.data.error) {
+        showToastmessage({
+          type: "success",
+          message: "Note Added Successfully",
+        });
         refreshNotes();
         onClose();
       }
@@ -29,16 +38,20 @@ const AddEditNotes = ({ noteData, type, onClose, refreshNotes }) => {
     }
   };
 
-  // Edit an existing Note
   const editNote = async () => {
+    const noteId = noteData._id;
     try {
       const token = localStorage.getItem("token");
       const response = await axiosInstance.put(
-        `/edit-note/${noteData.id}`,
+        "/edit-note/" + noteId,
         { title, content, tags },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (!response.data.error) {
+        showToastmessage({
+          type: "success",
+          message: "Note Updated Successfully",
+        });
         refreshNotes();
         onClose();
       }

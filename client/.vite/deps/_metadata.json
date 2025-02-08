@@ -2,7 +2,60 @@
   "hash": "aef716fc",
   "configHash": "369fa037",
   "lockfileHash": "ea877d0c",
-  "browserHash": "4ec9ca8f",
-  "optimized": {},
-  "chunks": {}
+  "browserHash": "1ce0de55",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "8c54eda7",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "9b0013e6",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "3f8594e2",
+      "needsInterop": false
+    },
+    "react-icons/md": {
+      "src": "../../node_modules/react-icons/md/index.mjs",
+      "file": "react-icons_md.js",
+      "fileHash": "3dda34d6",
+      "needsInterop": false
+    },
+    "react-modal": {
+      "src": "../../node_modules/react-modal/lib/index.js",
+      "file": "react-modal.js",
+      "fileHash": "1ece3165",
+      "needsInterop": true
+    },
+    "react-icons/fa6": {
+      "src": "../../node_modules/react-icons/fa6/index.mjs",
+      "file": "react-icons_fa6.js",
+      "fileHash": "c1a4b067",
+      "needsInterop": false
+    },
+    "react-icons/io": {
+      "src": "../../node_modules/react-icons/io/index.mjs",
+      "file": "react-icons_io.js",
+      "fileHash": "5bbdea84",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-TFANCKUT": {
+      "file": "chunk-TFANCKUT.js"
+    },
+    "chunk-2IXNGMXR": {
+      "file": "chunk-2IXNGMXR.js"
+    },
+    "chunk-LABQ442N": {
+      "file": "chunk-LABQ442N.js"
+    }
+  }
 }

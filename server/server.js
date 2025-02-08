@@ -127,7 +127,7 @@ app.post("/add-note", authenticateToken, async (req, res) => {
 });
 
 // Edit a Note
-app.post("/edit-note/:noteId", authenticateToken, async (req, res) => {
+app.put("/edit-note/:noteId", authenticateToken, async (req, res) => {
   const { noteId } = req.params;
   const { title, content, tags, isPinned } = req.body;
 
@@ -216,14 +216,46 @@ app.put("/update-note-pinned/:noteId", authenticateToken, async (req, res) => {
   }
 });
 
-app.get("/notes", async (req, res) => {
+// Search Notes
+app.get("/search-notes", authenticateToken, async (req, res) => {
+  const { query } = req.query;
+  if (!query) {
+    return res
+      .status(400)
+      .json({ error: false, message: "Search query is required" });
+  }
   try {
-    const notes = await Note.find(); // If using MongoDB
-    res.json({ success: true, notes });
+    // Get the user's id from req.user
+    const userId = req.user._id;
+
+    const matchingNotes = await Note.find({
+      userId: userId, // Use the user's id from the token
+      $or: [
+        { title: { $regex: new RegExp(query, "i") } },
+        { content: { $regex: new RegExp(query, "i") } },
+      ],
+    });
+    return res.json({
+      error: false,
+      notes: matchingNotes,
+      message: "Notes matching the search query retrieved",
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Error fetching notes" });
+    return res.status(500).json({
+      error: true,
+      message: "Internal server Error",
+    });
   }
 });
+
+// app.get("/notes", async (req, res) => {
+//   try {
+//     const notes = await Note.find(); // If using MongoDB
+//     res.json({ success: true, notes });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: "Error fetching notes" });
+//   }
+// });
 
 app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT}`);
